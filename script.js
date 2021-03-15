@@ -8,16 +8,6 @@ const BUTTON_BG = $('.buttons__bgcolor'),
 
 let state = 'box';
 
-BUTTON_TEXT.click(function () {
-  state = 'text';
-  return state;
-});
-
-BUTTON_BG.click((function () {
-  state = 'box';
-  return state;
-}));
-
 $( function() {
   function hexFromRGB(r, g, b) {
     let hex;
@@ -26,12 +16,12 @@ $( function() {
       g.toString(16),
       b.toString(16)
     ];
-    $.each( hex, function( nr, val ) {
-      if ( val.length === 1 ) {
-        hex[ nr ] = '0' + val;
+    $.each(hex, function(nr, val) {
+      if (val.length === 1) {
+        hex[nr] = '0' + val;
       }
     });
-    return hex.join( '' ).toUpperCase();
+    return hex.join('').toUpperCase();
   }
 
   function refreshColor() {
@@ -46,6 +36,18 @@ $( function() {
     }
   }
 
+  BUTTON_TEXT.click(function () {
+    state = 'text';
+    refreshColor();
+    return state;
+  });
+
+  BUTTON_BG.click((function () {
+    state = 'box';
+    refreshColor();
+    return state;
+  }));
+
   $('.slider__item').slider({
     orientation: 'horizontal',
     range: 'min',
@@ -54,6 +56,7 @@ $( function() {
     slide: refreshColor,
     change: refreshColor
   });
+
   RED.slider('value', 220);
   GREEN.slider('value', 220);
   BLUE.slider('value', 220);
